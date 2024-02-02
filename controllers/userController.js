@@ -35,14 +35,9 @@ const { name, email, gender, password,avatar} = req.body;
        
     })
     .then(user => {
-        // User created successfully
-        console.log('User created:', user);
-        // Additional code or response handling can be done here
         res.status(200).json({ user });
       })
       .catch(error => {
-        // Error occurred while creating the user
-        
         console.error('Error creating user:', error);
         // Error handling and response sending can be done here
         res.status(500).json({ message: 'Error creating user' });
@@ -53,11 +48,10 @@ const { name, email, gender, password,avatar} = req.body;
     // Login User
     exports.loginUser =asyncErrorHandler (async (req, res, next) => {
         const { email, password } = req.body;
-        console.log(email,password)
-        
+
         if (!email || !password) {
             next(new ErrorHandler("Please Enter Email And Password", 400));
-            return; // Add a return statement to exit the function after calling next()
+            return; 
         }
         const user = await User.findOne({ email }).select("+password");
 
